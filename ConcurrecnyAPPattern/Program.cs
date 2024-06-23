@@ -1,4 +1,4 @@
-﻿using ConcurrecnyAPPattern.Example;
+﻿using ConcurrecnyAPPattern.Calculator;
 using System;
 
 namespace ConcurrecnyAPPattern

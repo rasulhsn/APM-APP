@@ -8,9 +8,11 @@ namespace ConcurrecnyAPPattern.Core
     {
         private IMessage _rMessage;
         private ManualResetEvent _waitHandle;
+
         private bool _isCompleted;
         private bool _isInvokeAsyncCallBack;
         private object _state;
+
         private WaitCallback _task;
         private AsyncCallback _callBack;
 
@@ -74,11 +76,13 @@ namespace ConcurrecnyAPPattern.Core
         {
             if (_task != null)
                 _task.Invoke(null);
+
             if(_callBack != null)
             {
                 this._isInvokeAsyncCallBack = false;
                 this._callBack.Invoke(this);
             }
+
             this._waitHandle.Set();
             this._isCompleted = true;
         }
@@ -89,6 +93,7 @@ namespace ConcurrecnyAPPattern.Core
             this._task = (WaitCallback)msg.Properties["asyncTask"];
             this._callBack = (AsyncCallback)msg.Properties["asyncCallBack"];
             this._state = (object)msg.Properties["asyncState"];
+
             ThreadPool.QueueUserWorkItem(asyncTask, this);
 
             return this._rMessage;
